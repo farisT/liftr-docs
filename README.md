@@ -25,7 +25,7 @@ import { routes } from '@routes/index';
 
 const swaggerDescriptions = {
   info: {
-    title: 'REST API Notifications',
+    title: 'Liftr REST API',
     version: '1.0.0',
     description: 'This is the REST API for all the endpoints',
   },
