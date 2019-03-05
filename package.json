@@ -1,11 +1,12 @@
 {
   "name": "liftr-docs",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Middleware for Liftr to document your routes in Swagger",
-  "main": "lib/core.ts",
+  "main": "lib/core.js",
   "types": "lib/core.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "ts-node -r tsconfig-paths/register src/test/test.ts"
   },
   "author": "Faris Tangastani",
   "license": "ISC",
@@ -15,5 +16,9 @@
     "@types/swagger-ui-express": "^3.0.0",
     "express": "^4.16.4",
     "swagger-ui-express": "^4.0.2"
+  },
+  "devDependencies": {
+    "tsconfig-paths": "^3.8.0",
+    "typescript": "^3.3.3333"
   }
 }

@@ -3,12 +3,12 @@ import { AppRouter } from './types/AppRouter.type';
 
 import * as swaggerUi from 'swagger-ui-express';
 
-export const LiftrDocs = (routes: AppRouter[], swaggerDescriptions: any, swaggerResponses: any) => {
+export function LiftrDocs (routes: AppRouter[], swaggerDescriptions: any, swaggerResponses: any)  {
     const endpointDefinitions = routes.map((route: AppRouter) => {
         const returnObject: any = {};
         route.handler.stack.forEach(routeConfig => {
-            console.log('paths', routeConfig.route.path) //checks what type of path
-            console.log('methods', routeConfig.route.stack[0].method) //checks what type of endpoint
+            // routeConfig.route.path checks what type of path
+            // routeConfig.route.stack[0].method checks what type of endpoint
             const swaggerResponse = JSON.parse(JSON.stringify(swaggerResponses));
 
             const pathName = `${routeConfig.route.path}`;
@@ -19,11 +19,8 @@ export const LiftrDocs = (routes: AppRouter[], swaggerDescriptions: any, swagger
                 returnObject[pathName] = { get: swaggerResponse };
             }
         });
-        console.log(returnObject);
         return returnObject;
     });
-
-    console.log(endpointDefinitions);
 
   swaggerDescriptions.paths = endpointDefinitions.reduce((acc, cur) => Object.assign(acc, cur));
   const router = express.Router();
@@ -31,5 +28,3 @@ export const LiftrDocs = (routes: AppRouter[], swaggerDescriptions: any, swagger
 
   return router;
 };
-
-module.exports = LiftrDocs;
