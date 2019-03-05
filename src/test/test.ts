@@ -10,7 +10,7 @@ const swaggerDescriptions :any = {
     info: {
       title: 'REST API Notifications',
       version: '1.0.0',
-      description: 'This is the REST API for all the notification endpoints',
+      description: 'This is the REST API for all the endpoints',
     },
     servers: [{
       url: `http://localhost:${process.env.PORT || 4000}`,

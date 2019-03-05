@@ -1,6 +1,8 @@
 # liftr-docs
 
-A middleware for documenting your [Liftr](https://github.com/farisT/liftr) routes with [Swagger 3.0](https://swagger.io/) under the hood.
+[![npmversion](https://img.shields.io/npm/v/liftr-docs.svg)](https://github.com/farisT/liftr-docs)
+
+A middleware for documenting your [liftr](https://github.com/farisT/liftr) routes with [Swagger 3.0](https://swagger.io/) under the hood.
 
 ## Example usage
 
