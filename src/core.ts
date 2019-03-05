@@ -11,7 +11,7 @@ import * as swaggerUi from 'swagger-ui-express';
 * @Return {Router}
 */
 
-export const LiftrDocs = (routes: [], swaggerDescriptions: any, swaggerResponses: any) => {
+export const LiftrDocs = (routes: AppRouter[], swaggerDescriptions: any, swaggerResponses: any) => {
     const endpointDefinitions = routes.map((route: AppRouter) => {
         const returnObject: any = {};
         route.handler.stack.forEach(routeConfig => {
