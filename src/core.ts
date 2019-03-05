@@ -5,7 +5,7 @@ import * as swaggerUi from 'swagger-ui-express';
 
 /**
 * @Method: LiftrDocs.
-* @Param {array}
+* @Param {AppRouter[]}
 * @Param {any}
 * @Param {any}
 * @Return {Router}
