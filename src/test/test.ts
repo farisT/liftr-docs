@@ -1,4 +1,4 @@
-import { LiftrDocs } from '../core';
+import { LiftrDocs } from '../../lib/core';
 import { routes } from './routes';
 
 import * as express from 'express';

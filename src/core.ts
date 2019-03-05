@@ -3,14 +3,6 @@ import { AppRouter } from './types/AppRouter.type';
 
 import * as swaggerUi from 'swagger-ui-express';
 
-/**
-* @Method: LiftrDocs.
-* @Param {AppRouter[]}
-* @Param {any}
-* @Param {any}
-* @Return {Router}
-*/
-
 export const LiftrDocs = (routes: AppRouter[], swaggerDescriptions: any, swaggerResponses: any) => {
     const endpointDefinitions = routes.map((route: AppRouter) => {
         const returnObject: any = {};
