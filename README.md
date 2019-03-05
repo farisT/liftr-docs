@@ -1,0 +1,62 @@
+# liftr-docs
+
+A middleware for documenting your [Liftr](https://github.com/farisT/liftr) routes with [Swagger 3.0](https://swagger.io/) under the hood.
+
+## Example usage
+
+```
+import * as express from 'express';
+import { LiftrDocs } from 'liftr-docs';
+import { routes } from '@routes/index';
+
+// swaggerDescriptions
+// ---------------------------
+// standard info and port config for the documentation
+// the version of openapi used is 3.0.0. THIS SHOULD NOT CHANGE.
+
+const swaggerDescriptions = {
+  info: {
+    title: 'REST API Notifications',
+    version: '1.0.0',
+    description: 'This is the REST API for all the endpoints',
+  },
+  servers: [{
+    url: `http://localhost:${process.env.PORT || 4000}`,
+  }],
+  openapi: '3.0.0', 
+  paths: {},
+};
+
+// swaggerResponses
+// ---------------------------
+// Define the responses for your API endpoints and what type of request body you will send. 
+// You can also implement joi schemas to the routes (under schema object)
+
+const swaggerResponses = {
+  responses: {
+    200: {
+      description: 'OK',
+    },
+    400: {
+      description: 'Error: Bad Request',
+    },
+    401: {
+      description: 'Error: Unauthorized',
+    },
+  },
+  requestBody: {
+    required: true,
+    content: {
+      'application/json': {
+        schema: {},
+      },
+    },
+    description: '',
+  },
+};
+
+// This will initiate the /docs route to contain the swagger documentation
+// This will use the routes created in the Liftr router module
+app.use('/docs', LiftrDocs(routes, swaggerDescriptions, swaggerResponses));
+
+```
