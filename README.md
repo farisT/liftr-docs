@@ -39,7 +39,6 @@ const swaggerDescriptions = {
 // swaggerResponses
 // ---------------------------
 // Define the responses for your API endpoints and what type of request body you will send. 
-// You can also implement joi schemas to the routes (under schema object)
 
 const swaggerResponses = {
   responses: {
@@ -56,9 +55,7 @@ const swaggerResponses = {
   requestBody: {
     required: true,
     content: {
-      'application/json': {
-        schema: {},
-      },
+      'application/json': { },
     },
     description: '',
   },
