@@ -16,7 +16,7 @@ npm install liftr-docs --save
 ```
 import * as express from 'express';
 import { LiftrDocs } from 'liftr-docs';
-import { routes } from '@routes/index';
+import { routes } from '@routes/LiftrRoutingModule';
 
 // swaggerDescriptions
 // ---------------------------
@@ -27,7 +27,7 @@ const swaggerDescriptions = {
   info: {
     title: 'Liftr REST API',
     version: '1.0.0',
-    description: 'This is the REST API for all the endpoints',
+    description: 'REST API for all the endpoints',
   },
   servers: [{
     url: `http://localhost:${process.env.PORT || 4000}`,
@@ -62,7 +62,7 @@ const swaggerResponses = {
 };
 
 // This will initiate the /docs route to contain the swagger documentation
-// This will use the routes created in the Liftr router module
+// This will use the routes created in the LiftrRoutingModule
 app.use('/docs', LiftrDocs(routes, swaggerDescriptions, swaggerResponses));
 
 ```
