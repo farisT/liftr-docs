@@ -94,22 +94,32 @@ const mergeLogic = (preparedData:any) => {
             goodStuff.push(routeObject)
         };
         console.log('routeobject', routeObject)
+        console.log(init);
         const finishedStuffKey = Object.keys(goodStuff[init])
         // if statement to check if value matches the last value of the finishing array
-        console.log('finished', finishedStuffKey);
-        const routeDirection = key[0]
-        if(key[0] === finishedStuffKey[0]){
+        // console.log('finished', finishedStuffKey);
+        const routeDirection = key[0];
+        if(routeDirection === finishedStuffKey[0]){
             console.log('match', finishedStuffKey)
+            console.log('YES', routeDirection)
             // if match push the value under the existing key in object within finished array
             // also add the index to let init;
-            console.log('WOOOOW', Object.values(routeObject)[0])
+            const addingRoute = Object.values(routeObject)[0];
             console.log('WAAAW', goodStuff[init][routeDirection])
-            Object.assign(goodStuff[init][routeDirection], Object.values(routeObject)[0])
-            console.log(goodStuff);
-            init = i;
+            Object.assign(goodStuff[init][routeDirection], addingRoute)
+            console.log('GOOD', goodStuff);
         }
         else {
             console.log('not match', finishedStuffKey)
+            console.log('NO', routeDirection)
+            goodStuff.push(routeObject)
+            // init = i;
         }
     })
+}
+
+const checkIfExist = (routeArray:any, adderRoute:any) => {
+    for (let index = 0; index < routeArray.length; index++) {
+        if(routeArray[index].keys()) {}
+    }
 }
