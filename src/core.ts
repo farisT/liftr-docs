@@ -68,14 +68,14 @@ const prepareObject = (data:any) => {
     const methods = data.route.methods;
     Object.keys(methods).forEach((key) => {
         let lol = {
-            [paths]:key
+            [paths]: {[key]:{}}
         }
         const newObj = Object.assign(obj,lol);
         return newObj;
     })
     return obj;
-    // console.log(obj);
 };
+
 
 const mergeLogic = (preparedData:any) => {
     const goodStuff: any = [];
@@ -86,20 +86,30 @@ const mergeLogic = (preparedData:any) => {
     //     // console.log(src);
     //     accumulateRoute === currentRoute
     // }
-    // JSON.stringify(preparedData);
-    // console.log(preparedData.reduce(reducer))
-    let check: any;
-    preparedData.forEach((value:any, i:any) => {
-        let init = 0;
-        const key = Object.keys(value);
+    let init = 0;
+    preparedData.forEach((routeObject:any, i:any) => {
+        const key = Object.keys(routeObject);
         // asigning the first value to the finished array
-        if(i === 0) goodStuff.push(value);
+        if(i === 0) {
+            goodStuff.push(routeObject)
+        };
+        console.log('routeobject', routeObject)
         const finishedStuffKey = Object.keys(goodStuff[init])
         // if statement to check if value matches the last value of the finishing array
-        console.log(finishedStuffKey);
+        console.log('finished', finishedStuffKey);
+        const routeDirection = key[0]
         if(key[0] === finishedStuffKey[0]){
             console.log('match', finishedStuffKey)
             // if match push the value under the existing key in object within finished array
+            // also add the index to let init;
+            console.log('WOOOOW', Object.values(routeObject)[0])
+            console.log('WAAAW', goodStuff[init][routeDirection])
+            Object.assign(goodStuff[init][routeDirection], Object.values(routeObject)[0])
+            console.log(goodStuff);
+            init = i;
+        }
+        else {
+            console.log('not match', finishedStuffKey)
         }
     })
 }
