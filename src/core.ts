@@ -13,8 +13,9 @@ export function LiftrDocs (routes: AppRouter[], swaggerDescriptions: any, swagge
 
     const endpointDefinitions = routes.map((route: AppRouter) => {
         const returnObject: any = {};
+        const parentRoute = route.path;
         const preparedObject = route.handler.stack.map((depthRoute: any) =>  {
-            const object =  prepareObject(depthRoute);
+            const object =  prepareObject(depthRoute,parentRoute);
             return object;
         })
         const mergedData = mergeLogic(preparedObject);
@@ -61,13 +62,14 @@ export function LiftrDocs (routes: AppRouter[], swaggerDescriptions: any, swagge
   return router;
 };
 
-const prepareObject = (data:any) => {
+const prepareObject = (data:any, parentRoute:string) => {
     const obj:any = {};
     const paths = data.route.path;
     const methods = data.route.methods;
+    const fullPath = parentRoute + paths;
     Object.keys(methods).forEach((key) => {
         let lol = {
-            [paths]: {[key]:{}}
+            [fullPath]: {[key]:{}}
         }
         const newObj = Object.assign(obj,lol);
         return newObj;
@@ -87,7 +89,7 @@ const mergeLogic =  (preparedData:any) => {
         // console.log('routeobject', routeObject)
         // console.log(init);
         const routeDirection = key[0];
-        checkIfExist(goodStuff,routeObject, routeDirection, preparedData.length);
+        checkIfExist(goodStuff,routeObject, routeDirection);
         // console.log(match);
         // console.log(match);
         // if(match) {
@@ -146,11 +148,10 @@ const mergeLogic =  (preparedData:any) => {
     return goodStuff;
 }
 
-const checkIfExist = (routeArray:any, adderRoute:any, routeDirection:any, length:any) => {
+const checkIfExist = (routeArray:any, adderRoute:any, routeDirection:any) => {
     // loop through completing object and match any already known routes
     const actualLength = routeArray.length - 1;
     for (let index = 0; index < routeArray.length; index ++) {
-    console.log(actualLength, index,'check this man')
 
         // if the object key from that index matches the adding route assign to the same 
         const method = Object.values(adderRoute)[0];
@@ -165,27 +166,6 @@ const checkIfExist = (routeArray:any, adderRoute:any, routeDirection:any, length
             console.log('not Matching', adderDirection, 'THIS ONE', Object.keys(routeArray[index])[0])
             routeArray.push(adderRoute)
         }
-        // if(Object.keys(routeArray[index])[0] !== adderDirection && routeArray.length > 1) {
-        //     // only works for 2 different subroutes
-        //     continue
-        // }
-        // if routearray.length - 1 === index && no match
-        // else {
-        //     // console.log(index, routeArray.length)
-        //     console.log('not Matching', adderDirection, 'THIS ONE', Object.keys(routeArray[index])[0])
-        //     routeArray.push(adderRoute)
-        // }
-        // else if(index === routeArray.length) {
-        //     console.log('not Matching', adderDirection, 'THIS ONE', Object.keys(routeArray[index])[0])
-        // }
-        // // else push it as a new item in the array
-        // else {
-        //     console.log('adder', adderRoute);
-        //     console.log('WEEE', Object.keys(adderRoute)[0], 'MATCHING WITH',Object.keys(routeArray[index])[0] )
-        //     routeArray.push(adderRoute)
-        //     // console.log('adder',adderRoute, 'killer', routeArray);
-        //     // gets a new array everytime, so make sure to check this
-        // };
     }
     return routeArray;
 }
