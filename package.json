@@ -6,7 +6,7 @@
   "types": "lib/core.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && ts-node -r tsconfig-paths/register src/test/test.ts"
+    "test": "ts-node -r tsconfig-paths/register src/test/test.ts"
   },
   "author": "Faris Tangastani",
   "license": "MIT",

@@ -13,12 +13,11 @@ export function LiftrDocs (routes: AppRouter[], swaggerDescriptions: any, swagge
 
     const endpointDefinitions = routes.map((route: AppRouter) => {
         const returnObject: any = {};
-        // console.log(route.handler.stack)
         const preparedObject = route.handler.stack.map((depthRoute: any) =>  {
-            const object = prepareObject(depthRoute);
+            const object =  prepareObject(depthRoute);
             return object;
         })
-        mergeLogic(preparedObject);
+        const mergedData = mergeLogic(preparedObject);
         // route.handler.stack.forEach(routeConfig => {
         //     // routeConfig.route.path checks what type of path
         //     // routeConfig.route.stack[0].method checks what type of endpoint
@@ -77,49 +76,116 @@ const prepareObject = (data:any) => {
 };
 
 
-const mergeLogic = (preparedData:any) => {
+const mergeLogic =  (preparedData:any) => {
     const goodStuff: any = [];
-    // const reducer = (accumulateRoute:any,currentRoute:any, idx:any, src:any) => {
-    //     console.log(currentRoute);
-    //     console.log(Object.keys(currentRoute));
-    //     console.log(idx);
-    //     // console.log(src);
-    //     accumulateRoute === currentRoute
-    // }
-    let init = 0;
-    preparedData.forEach((routeObject:any, i:any) => {
+    preparedData.forEach( (routeObject:any, i:any) => {
         const key = Object.keys(routeObject);
         // asigning the first value to the finished array
         if(i === 0) {
             goodStuff.push(routeObject)
         };
-        console.log('routeobject', routeObject)
-        console.log(init);
-        const finishedStuffKey = Object.keys(goodStuff[init])
+        // console.log('routeobject', routeObject)
+        // console.log(init);
+        const routeDirection = key[0];
+        checkIfExist(goodStuff,routeObject, routeDirection, preparedData.length);
+        // console.log(match);
+        // console.log(match);
+        // if(match) {
+        //     const addingRoute = Object.values(routeObject)[0];
+        //     Object.assign(goodStuff[init][routeDirection], addingRoute)
+        // } else {
+        //    goodStuff.push(routeObject)
+        // }
+        // const finishedStuffKey = Object.keys(goodStuff[init])
         // if statement to check if value matches the last value of the finishing array
         // console.log('finished', finishedStuffKey);
-        const routeDirection = key[0];
-        if(routeDirection === finishedStuffKey[0]){
-            console.log('match', finishedStuffKey)
-            console.log('YES', routeDirection)
-            // if match push the value under the existing key in object within finished array
-            // also add the index to let init;
-            const addingRoute = Object.values(routeObject)[0];
-            console.log('WAAAW', goodStuff[init][routeDirection])
-            Object.assign(goodStuff[init][routeDirection], addingRoute)
-            console.log('GOOD', goodStuff);
-        }
-        else {
-            console.log('not match', finishedStuffKey)
-            console.log('NO', routeDirection)
-            goodStuff.push(routeObject)
-            // init = i;
-        }
+        // if(routeDirection === finishedStuffKey[0]){
+        //     console.log('match', finishedStuffKey)
+        //     // console.log('YES', routeDirection)
+        //     // if match push the value under the existing key in object within finished array
+        //     // also add the index to let init;
+        //     const addingRoute = Object.values(routeObject)[0];
+        //     // console.log('WAAAW', goodStuff[init][routeDirection])
+        //     Object.assign(goodStuff[init][routeDirection], addingRoute)
+        //     // console.log('GOOD', goodStuff);
+        // }
+        // else {
+        //     console.log('not match', finishedStuffKey)
+        //     // console.log('NO', routeDirection)
+        //     goodStuff.push(routeObject)
+        //     // init = i;
+        // }
     })
+    // preparedData.reduce( (accumulator:any, route:any) => {
+    //     // console.log('accumulator', accumulator)
+    //     // console.log('user', route)
+    //     console.log('ACCUMU', accumulator);
+    //     accumulator.forEach((element:any, i:any) => {
+    //         const routeDirection = Object.keys(element)[0];
+    //         const method =Object.values(element)[0];
+    //         if(Object.keys(element)[0] === Object.keys(accumulator[i])[0]){
+    //             Object.assign(accumulator[i][routeDirection], method)
+    //             console.log('match', accumulator);            }
+    //     });
+    //     if(Object.keys(accumulator)[0] === Object.keys(route)[0]){        }
+    //     else {
+    //         accumulator.push(route)
+    //     }
+    //     return accumulator;
+    // }, [])
+    console.log('HEYYYY',JSON.stringify(goodStuff,null,2));
+    // let array = [{'/hehe':{}}, {'/':{}},{'/':{}}]
+    //    const thisIt =  array.reduce((acc:any,route:any) => {
+    //         const nice = Object.keys(route)[0];
+    //         acc.push(nice);
+    //         return acc;
+    //     },[])
+    //     console.log(thisIt);
+        // if thisIt.indexOf('/')
+
+    return goodStuff;
 }
 
-const checkIfExist = (routeArray:any, adderRoute:any) => {
-    for (let index = 0; index < routeArray.length; index++) {
-        if(routeArray[index].keys()) {}
+const checkIfExist = (routeArray:any, adderRoute:any, routeDirection:any, length:any) => {
+    // loop through completing object and match any already known routes
+    const actualLength = routeArray.length - 1;
+    for (let index = 0; index < routeArray.length; index ++) {
+    console.log(actualLength, index,'check this man')
+
+        // if the object key from that index matches the adding route assign to the same 
+        const method = Object.values(adderRoute)[0];
+        const adderDirection = Object.keys(adderRoute)[0];
+        if(Object.keys(routeArray[index])[0] === adderDirection) {
+            console.log('match', Object.keys(routeArray[index])[0],'this one', adderDirection)
+            // console.log(adderRoute);
+            Object.assign(routeArray[index][routeDirection], method)
+            return
+        }
+        if(actualLength === index && Object.keys(routeArray[index])[0] !== adderDirection) {
+            console.log('not Matching', adderDirection, 'THIS ONE', Object.keys(routeArray[index])[0])
+            routeArray.push(adderRoute)
+        }
+        // if(Object.keys(routeArray[index])[0] !== adderDirection && routeArray.length > 1) {
+        //     // only works for 2 different subroutes
+        //     continue
+        // }
+        // if routearray.length - 1 === index && no match
+        // else {
+        //     // console.log(index, routeArray.length)
+        //     console.log('not Matching', adderDirection, 'THIS ONE', Object.keys(routeArray[index])[0])
+        //     routeArray.push(adderRoute)
+        // }
+        // else if(index === routeArray.length) {
+        //     console.log('not Matching', adderDirection, 'THIS ONE', Object.keys(routeArray[index])[0])
+        // }
+        // // else push it as a new item in the array
+        // else {
+        //     console.log('adder', adderRoute);
+        //     console.log('WEEE', Object.keys(adderRoute)[0], 'MATCHING WITH',Object.keys(routeArray[index])[0] )
+        //     routeArray.push(adderRoute)
+        //     // console.log('adder',adderRoute, 'killer', routeArray);
+        //     // gets a new array everytime, so make sure to check this
+        // };
     }
+    return routeArray;
 }
