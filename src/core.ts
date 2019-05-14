@@ -39,7 +39,13 @@ const prepareObject = (data:any, parentRoute:string, swaggerResponses:any) => {
     const obj:any = {};
     const paths = data.route.path;
     const methods = data.route.methods;
-    const fullPath = parentRoute + paths;
+    let fullPath = parentRoute + paths;
+    if(parentRoute === '/' && paths === '/') {
+        fullPath = parentRoute;
+    }
+    else if(parentRoute === '/' && paths !== '/') {
+        fullPath = paths;
+    }
     Object.keys(methods).forEach((key) => {
         let lol = {
             [fullPath]: {[key]:swaggerResponses}
@@ -64,6 +70,7 @@ const mergeLogic =  (preparedData:any) => {
     })
     return goodStuff;
 }
+
 
 const checkIfExist = (routeArray:any, adderRoute:any, routeDirection:any) => {
     // loop through completing object and match any already known routes

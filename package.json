@@ -1,6 +1,6 @@
 {
   "name": "liftr-docs",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Middleware for Liftr to document your routes in Swagger",
   "main": "lib/core.js",
   "types": "lib/core.d.ts",
