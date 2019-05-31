@@ -57,7 +57,7 @@ const prepareObject = (data:any, parentRoute:string, swaggerResponses:any) => {
 };
 
 
-const mergeLogic =  (preparedData:any) => {
+const mergeLogic = (preparedData:any) => {
     const goodStuff: any = [];
     preparedData.forEach( (routeObject:any, i:any) => {
         const key = Object.keys(routeObject);
