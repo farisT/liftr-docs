@@ -1,13 +1,13 @@
 # liftr-docs
 
-[![npmversion](https://img.shields.io/npm/v/liftr-docs.svg)](https://github.com/farisT/liftr-docs)
+[![npmversion](https://img.shields.io/npm/v/@liftr/docs.svg)](https://github.com/farisT/liftr-docs)
 
 A middleware for documenting your [Liftr](https://github.com/farisT/liftr) routes with [Swagger 3.0](https://swagger.io/) under the hood.
 
 ## Installation
 
 ```
-npm install liftr-docs --save
+npm install @liftr/docs --save
 ```
 
 
@@ -15,7 +15,7 @@ npm install liftr-docs --save
 
 ```
 import * as express from 'express';
-import { LiftrDocs } from 'liftr-docs';
+import { LiftrDocs } from '@liftr/docs';
 import { routes } from '@routes/LiftrRoutingModule';
 
 // swaggerDescriptions
